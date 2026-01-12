@@ -5,8 +5,8 @@
     <script>
       const base = '/Gifs-App';
       const path = location.pathname;
-      if (!path.startsWith(base + '/index.html')) {
-        location.replace(base + '/index.html' + path.replace(base, ''));
+      if (!path.startsWith(base)) {
+        location.replace(base + path.replace(base, ''));
       }
     </script>
   </head>
