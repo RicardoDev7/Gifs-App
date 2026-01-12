@@ -4,8 +4,10 @@
     <meta charset="utf-8" />
     <script>
       const base = '/Gifs-App';
-      const path = location.pathname + location.search + location.hash;
-      location.replace(base + '/index.html' + path);
+      const path = location.pathname;
+      if (!path.startsWith(base + '/index.html')) {
+        location.replace(base + '/index.html' + path.replace(base, ''));
+      }
     </script>
   </head>
 </html>
