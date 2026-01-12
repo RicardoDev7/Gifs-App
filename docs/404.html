@@ -2,9 +2,8 @@
 <html>
   <head>
     <script>
-      const repo = '/Gifs-App';
-      const path = location.pathname.replace(repo, '');
-      location.replace(repo + path);
+      const path = location.pathname.replace('/Gifs-App', '');
+      location.replace('/Gifs-App/?redirect=' + path);
     </script>
   </head>
 </html>
