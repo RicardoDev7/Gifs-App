@@ -1,0 +1,1 @@
+import{Ia as n,Ja as c,Ra as o,ua as s}from"./chunk-UZK6IZC5.js";var a=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=s({type:t,selectors:[["app-search-page"]],decls:2,vars:0,template:function(e,r){e&1&&(n(0,"p"),o(1,"search-page works!"),c())},encapsulation:2})};export{a as default};
