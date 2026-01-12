@@ -22,6 +22,11 @@ export const routes: Routes = [
           import('./gifs/pages/search-page/search-page')
       },
       {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'trending'
+      },
+      {
         path: '**',
         redirectTo: 'trending'
       }

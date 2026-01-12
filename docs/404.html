@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <script>
-      const path = location.pathname.replace('/Gifs-App', '');
-      location.replace('/Gifs-App/?redirect=' + path);
+      const base = '/Gifs-App';
+      const path = location.pathname + location.search + location.hash;
+      location.replace(base + '/index.html' + path);
     </script>
   </head>
 </html>
