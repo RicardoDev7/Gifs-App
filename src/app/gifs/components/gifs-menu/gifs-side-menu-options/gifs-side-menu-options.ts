@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, Signal, WritableSignal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
+import { GifsService } from 'src/app/gifs/services/gifs.service';
 
 interface MenuOption {
   label: string;
@@ -14,6 +15,8 @@ interface MenuOption {
   templateUrl: './gifs-side-menu-options.html',
 })
 export class GifsSideMenuOptions {
+  gifsService = inject(GifsService);
+
   menuOptions: MenuOption[] = [
     {
       label: 'Trending',
@@ -28,4 +31,7 @@ export class GifsSideMenuOptions {
       icon: 'fa-solid fa-magnifying-glass'
     }
   ]
+
+  gifsHistory: Signal<string[]> = this.gifsService.searchHistoryKey;
+
 }
