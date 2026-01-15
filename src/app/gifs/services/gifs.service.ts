@@ -1,27 +1,27 @@
 import { HttpClient } from "@angular/common/http";
-import { computed, inject, Injectable, signal } from "@angular/core";
+import { computed, inject, Injectable, Signal, signal, WritableSignal } from "@angular/core";
 import { environment } from "@environments/environment";
 import type { GiphyResponse } from "../interfaces/giphy.interfaces";
 import { Gif } from "../interfaces/gif.interface";
 import { GifMapper } from "../mapper/gif.mapper";
-import { map, tap } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 
 @Injectable({ providedIn: 'root'})
 export class GifsService{
 
-  private http = inject(HttpClient);
+  private http: HttpClient = inject(HttpClient);
 
-  trendingGifs = signal<Gif[]>([]);
-  trendingGifsLoading = signal(true);
+  trendingGifs: WritableSignal<Gif[]> = signal<Gif[]>([]);
+  trendingGifsLoading: WritableSignal<boolean> = signal(true);
 
-  searchHistory = signal<Record<string, Gif[]>>({});
-  searchHistoryKey = computed(() => Object.keys(this.searchHistory()));
+  searchHistory: WritableSignal<Record<string, Gif[]>> = signal<Record<string, Gif[]>>({});
+  searchHistoryKey: Signal<string[]> = computed(() => Object.keys(this.searchHistory()));
 
   constructor(){
     this.loadTrendingGifs();
   }
 
-  loadTrendingGifs(){
+  loadTrendingGifs() : void {
     this.http.get<GiphyResponse>(`${environment.giphyApiUrl}gifs/trending`, {
       params: {
         api_key: environment.apiGifsKey,
@@ -37,7 +37,7 @@ export class GifsService{
     });
   }
 
-  searchTrendingGifs(query: string){
+  searchTrendingGifs(query: string): Observable<Gif[]>{
     return this.http.get<GiphyResponse>(`${environment.giphyApiUrl}gifs/search`, {
       params: {
         api_key: environment.apiGifsKey,
@@ -56,6 +56,10 @@ export class GifsService{
         }));
       })
     );
+  }
+
+  getHistoryGifs(query: string) : Gif[] {
+    return this.searchHistory()[query] ?? [];
   }
 
 }
