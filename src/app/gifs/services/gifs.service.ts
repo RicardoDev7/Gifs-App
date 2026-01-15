@@ -30,7 +30,23 @@ export class GifsService{
       const gifs = GifMapper.mapGiphyItemsToGifArray( resp.data );
       this.trendingGifs.set( gifs );
       this.trendingGifsLoading.set( false );
+    });
+  }
+
+  searchTrendingGifs(query: string){
+    this.http.get<GiphyResponse>(`${environment.giphyApiUrl}gifs/search`, {
+      params: {
+        api_key: environment.apiGifsKey,
+        q: query,
+        limit: '20',
+        offset: '0',
+        rating: 'g',
+        bundle: 'messaging_non_clips'
+      }
+    }).subscribe((resp) => {
+      const gifs = GifMapper.mapGiphyItemsToGifArray( resp.data );
       console.log(gifs);
     });
   }
+
 }
